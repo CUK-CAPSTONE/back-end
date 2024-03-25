@@ -71,7 +71,7 @@ public class KakaoPayService {
 
         httpHeaders.set("Authorization", auth);
         httpHeaders.set("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-
+        httpHeaders.set("x-api-key", "rkxhfflreogkrrywkflsrhql2024");
         return httpHeaders;
     }
 
