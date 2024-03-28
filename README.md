@@ -36,16 +36,23 @@
 │               ├── controller
 │               │   ├── ImageController
 │               │   ├── KakaoLoginController
+│               │   ├── KakaoPayController
 │               │   ├── MessageController
 │               │   └── UserController
 │               ├── dto
 │               │   ├── Request
+│               │   │   ├── ImageRequest
+│               │   │   ├── KakaoPayApproveRequest
+│               │   │   ├── KakaoPayReadyRequest
 │               │   │   ├── ImageRequest
 │               │   │   ├── MessageRequest
 │               │   │   └── UserRequest
 │               │   └── Response
 │               │   │   ├── ApiStandardResponse
 │               │   │   ├── ErrorResponse
+│               │   │   ├── KakaoPayApproveResponse
+│               │   │   ├── KakaoPayCancelResponse
+│               │   │   ├── KakaoPayReadyResponse
 │               │   │   ├── MessageRespnose
 │               │   │   ├── ThreeDimesionCreateResponse
 │               │   │   ├── ThreeDimesionResponse
@@ -74,9 +81,11 @@
 │               └── service
 │                   ├── ImageService
 │                   ├── KakaoLoginService
+│                   ├── KakaoPayService
 │                   ├── MeshyApiService
 │                   ├── MessageService
 │                   └── UserService
+│ 
 └── test
 ```
 
