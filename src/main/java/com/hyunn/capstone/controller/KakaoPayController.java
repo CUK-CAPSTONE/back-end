@@ -6,20 +6,18 @@ import com.hyunn.capstone.dto.Response.KakaoPayApproveResponse;
 import com.hyunn.capstone.service.KakaoPayService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.enums.ParameterIn;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/pay")
+@RequestMapping("/api/pay")
 public class KakaoPayController {
 
     private final KakaoPayService kakaoPayService;
@@ -33,26 +31,18 @@ public class KakaoPayController {
             @ApiResponse(responseCode = "400", description = "잘못된 요청",
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = ErrorResponse.class))),
-
-
-            @ApiResponse(responseCode = "401", description = "인증 실패",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "404", description = "결제 정보를 찾을 수 없음",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorResponse.class))),
-            @ApiResponse(responseCode = "500", description = "서버 에러",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorResponse.class)))
     })
+    @Parameter(name = "x-api-key", description = "x-api-key", schema = @Schema(type = "string"),
+            in = ParameterIn.HEADER, example = "testapieky1234")
     @GetMapping("/approve")
     public ResponseEntity<ApiStandardResponse<KakaoPayApproveResponse>> getPgToken(
+            @RequestHeader(value = "x-api-key", required = false) String apiKey,
             @Parameter(description = "결제 고유 번호", required = true, example = "T1234567890")
             @RequestParam("tid") String tid,
             @Parameter(description = "결제 승인 토큰", required = true, example = "pg_token1234567890")
             @RequestParam("pg_token") String pgToken) {
 
-        KakaoPayApproveResponse response = kakaoPayService.getKakaoPayApprove(pgToken, tid);
+        KakaoPayApproveResponse response = kakaoPayService.getKakaoPayApprove(apiKey, pgToken, tid);
         return ResponseEntity.ok(ApiStandardResponse.success(response));
     }
 }
