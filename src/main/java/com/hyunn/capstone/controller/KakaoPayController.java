@@ -74,12 +74,7 @@ public class KakaoPayController{
             @Parameter(description = "결제 취소 시 redirect url", required = true, example = "https://developers.kakao.com/fail")
             @RequestParam("cancel_url") String cancelUrl,
             @Parameter(description = "결제 실패 시 redirect url", required = true, example = "https://developers.kakao.com/cancel")
-            @RequestParam("fail_url") String failUrl,
-            @Parameter(
-                    description = "multipart/form-data 형식의 10MB 이하 이미지 파일을 받습니다.",
-                    content = @Content(mediaType = MediaType.MULTIPART_FORM_DATA_VALUE)
-            )
-            @RequestPart("file") MultipartFile file) throws JsonProcessingException {
+            @RequestParam("fail_url") String failUrl) throws JsonProcessingException {
 
         KakaoPayReadyResponse response = kakaoPayService.getReady(apiKey, partnerOrderId, partnerUserId, itemName, quantity, totalAmount, approvalUrl, cancelUrl, failUrl);
         return ResponseEntity.ok(ApiStandardResponse.success(response));
@@ -114,7 +109,7 @@ public class KakaoPayController{
             @Parameter(description = "결제 고유 번호(TID)", required = true, example = "T1234567890123456789")
             @RequestParam("tid") String tid,
             @Parameter(description = "가맹점 주문번호", required = true, example = "partner_order_id")
-            @RequestParam("partnet_order_id") String partnerOrderId,
+            @RequestParam("partner_order_id") String partnerOrderId,
             @Parameter(description = "가맹점 회원 id", required = true, example = "partner_user_id")
             @RequestParam("partnerUserId") String partnerUserId,
             @Parameter(description = "결제승인 요청을 인증하는 토큰", required = true, example = "pg_token")
