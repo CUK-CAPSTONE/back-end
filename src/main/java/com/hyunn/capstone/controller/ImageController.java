@@ -66,7 +66,7 @@ public class ImageController {
                   + " \"data\": {\"status\": \"API_NOT_FOUND_EXCEPTION\", "
                   + "\"msg\":\"Api 응답이 올바르지 않습니다.\"} }")))})
   @Parameter(name = "x-api-key", description = "x-api-key", schema = @Schema(type = "string"),
-      in = ParameterIn.HEADER, example = "testapieky1234")
+      in = ParameterIn.HEADER, example = "testapikey1234")
   @PostMapping(value = "/image_to_text", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
   public ResponseEntity<ApiStandardResponse<ImageToTextResponse>> imageToText(
       @RequestHeader(value = "x-api-key", required = false) String apiKey,

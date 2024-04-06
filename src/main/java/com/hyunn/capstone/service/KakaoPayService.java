@@ -3,22 +3,14 @@ package com.hyunn.capstone.service;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.hyunn.capstone.dto.Request.ThreeDimensionCreateRequest;
+import com.hyunn.capstone.dto.Response.KakaoPayApproveResponse;
 import com.hyunn.capstone.dto.Response.KakaoPayReadyResponse;
-import com.hyunn.capstone.dto.Response.ThreeDimensionCreateResponse;
-import com.hyunn.capstone.dto.Response.ThreeDimensionResponse;
-import com.hyunn.capstone.entity.Image;
 import com.hyunn.capstone.entity.User;
 import com.hyunn.capstone.exception.ApiKeyNotValidException;
 import com.hyunn.capstone.exception.ApiNotFoundException;
-import com.hyunn.capstone.exception.ImageNotFoundException;
 import com.hyunn.capstone.exception.UserNotFoundException;
-import com.hyunn.capstone.repository.ImageJpaRepository;
 import com.hyunn.capstone.repository.UserJpaRepository;
-import java.util.HashMap;
-import java.util.Map;
+
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,7 +34,7 @@ public class KakaoPayService {
     @Value("${spring.security.oauth2.client.kakaoPay.client-id}")
     private String cid;
 
-    @Value("${spring.security.oauth2.client.kakaoPAy.client-secret")
+    @Value("${spring.security.oauth2.client.kakaoPay.client-secret}")
     private String admin_Key;
 
     @Value("${spring.security.oauth2.client.kakaoPay.ready-uri}")
@@ -51,14 +43,13 @@ public class KakaoPayService {
     @Value("${spring.security.oauth2.client.kakaoPay.approve-uri}")
     private String approveUrl;
 
-    private final ImageJpaRepository imageJpaRepository;
     private final UserJpaRepository userJpaRepository;
     private KakaoPayReadyResponse kakaoPayReadyResponse;
 
     /**
      * 카카오페이 결제준비 단계
      */
-    public KakaoPayReadyResponse getReady(String apiKey)
+    public KakaoPayReadyResponse getReady(String apiKey, String partnerOrderId, String partnerUserId, String itemName, int quantity, int totalAmount, String approvalUrl, String cancelUrl, String failUrl)
             throws JsonProcessingException {
         // API KEY 유효성 검사
         if (apiKey == null || !apiKey.equals(xApiKey)) {
@@ -127,15 +118,62 @@ public class KakaoPayService {
         return kakaoPayReadyResponse;
 
     }
-}
+
+
+    // ... 기존 코드 ...
 
     /**
      * 카카오페이 결제승인 단계
      */
-    /*public KakaoPayReadyResponse getApprove(String apiKey, String previewResult){
+    public KakaoPayApproveResponse getApprove(String apiKey, String pgToken, String partnerOrderId, String partnerUserId, String tid)
+            throws JsonProcessingException {
 
+        // API KEY 유효성 검사
         if (apiKey == null || !apiKey.equals(xApiKey)) {
             throw new ApiKeyNotValidException("API KEY가 올바르지 않습니다.");
         }
+
+        // 요청 헤더를 구성합니다.
+        HttpHeaders headers = new HttpHeaders();
+        headers.set("Authorization", "KakaoAK " + admin_Key);
+        headers.set("Content-Type", MediaType.APPLICATION_JSON_VALUE + ";charset=UTF-8");
+        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+
+        // 승인 요청 바디를 구성합니다.
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+        params.add("cid", cid);
+        params.add("tid", kakaoPayReadyResponse.getTid());
+        params.add("partner_order_id", partnerOrderId);
+        params.add("partner_user_id", partnerUserId);
+        params.add("pg_token", pgToken);
+
+        RestTemplate restTemplate = new RestTemplate();
+
+        // HttpEntity를 생성합니다.
+        HttpEntity<MultiValueMap<String, String>> requestEntity = new HttpEntity<>(params, headers);
+
+        // API 호출을 수행합니다.
+        ResponseEntity<String> response = restTemplate.exchange(
+                approveUrl,
+                HttpMethod.POST,
+                requestEntity,
+                String.class
+        );
+
+        // API 응답을 처리합니다.
+        if (!response.getStatusCode().is2xxSuccessful()) {
+            // API 호출이 실패한 경우의 처리
+            throw new ApiNotFoundException("API 호출에 실패했습니다. 상태 코드: " + response.getStatusCode());
+        }
+
+        // 성공적으로 API를 호출한 경우의 처리
+        String responseBody = response.getBody();
+        ObjectMapper mapper = new ObjectMapper();
+        JsonNode responseJson = mapper.readTree(responseBody);
+
+
+        // KakaoPayApproveResponse 객체를 생성합니다.
+        KakaoPayApproveResponse kakaoPayApproveResponse = mapper.treeToValue(responseJson, KakaoPayApproveResponse.class);
+        return kakaoPayApproveResponse;
     }
-}*/
+}
