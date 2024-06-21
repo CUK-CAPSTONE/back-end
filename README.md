@@ -170,4 +170,4 @@
 <img src= "https://velog.velcdn.com/images/hyuntae99/post/95b0669e-7b80-4e10-85bf-5dd44fe08e54/image.gif">
 <br><br>
 
-**더 많은 정보는 [발표영상](https://youtu.be/ZWVOgQ6WW7c?si=fDE5nHkoOVykHuGc)에서 확인하실 수 있습니다.**
+### 더 많은 정보는 [발표영상](https://youtu.be/ZWVOgQ6WW7c?si=fDE5nHkoOVykHuGc)에서 확인하실 수 있습니다.
