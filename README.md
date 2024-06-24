@@ -25,7 +25,7 @@
 <br>
 
 # 🎢 work flow
-<img src="https://velog.velcdn.com/images/hyuntae99/post/21d1a9c3-63b4-4ac8-95df-74c475b3d372/image.png">
+<img src="https://velog.velcdn.com/images/hyuntae99/post/61d5f3a7-1146-49d5-8911-3187fc7f3fa1/image.png">
 
 # 🗂️ Directory
 ```
