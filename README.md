@@ -171,7 +171,7 @@
 <br><br>
 
 ### 더 많은 정보는 [발표영상](https://youtu.be/ZWVOgQ6WW7c?si=fDE5nHkoOVykHuGc)에서 확인하실 수 있습니다.
-
+<br>
 
 ## + 논문 등록
 <img src = "https://velog.velcdn.com/images/hyuntae99/post/dd0701c6-4f26-4ccb-8bda-fd2812c936f6/image.png">
