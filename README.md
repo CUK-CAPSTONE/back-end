@@ -171,3 +171,10 @@
 <br><br>
 
 ### 더 많은 정보는 [발표영상](https://youtu.be/ZWVOgQ6WW7c?si=fDE5nHkoOVykHuGc)에서 확인하실 수 있습니다.
+
+
+## + 논문 등록
+<img src = "https://velog.velcdn.com/images/hyuntae99/post/dd0701c6-4f26-4ccb-8bda-fd2812c936f6/image.png">
+<img src = "https://velog.velcdn.com/images/hyuntae99/post/6434f478-c70c-47f0-8198-78d1fb4781bf/image.png">
+
+### 더 자세한 정보는 [여기서](https://drive.google.com/file/d/1A5cWRG36dFshzS6_ID3MLHSCMyM3K1WN/view?usp=sharing) 다운 받아 확인하실 수 있습니다. <br><br> 해당 내용은 139.p에 기재되어있습니다.
