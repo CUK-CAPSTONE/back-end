@@ -71,10 +71,10 @@ public class MeshyApiService {
     Map<String, Object> requestBody = new HashMap<>();
     requestBody.put("mode", "preview");
     String prompt = "3D model of " + "(" + gender + ") " + keyWord + ", " + emotion + ", "
-        + "detailed, cartoon character style, only face";
+        + "detailed, cartoon style, only face";
     requestBody.put("prompt", prompt);
 
-    String artStyle = "sculpture";
+    String artStyle = "cartoon";
     requestBody.put("art_style", artStyle);
 
     String negativePrompt = "ugly, low quality";
