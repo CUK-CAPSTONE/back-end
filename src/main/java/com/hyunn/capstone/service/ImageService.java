@@ -61,9 +61,9 @@ public class ImageService {
       throw new ApiKeyNotValidException("API KEY가 올바르지 않습니다.");
     }
 
-    // 이미지 파일인지 확인
-    if (!multipartFile.isEmpty() && !multipartFile.getContentType().startsWith("image")) {
-      throw new FileNotAllowedException("이미지 파일만 업로드 가능합니다.");
+    // 이미지 파일이 JPG인지 확인
+    if (!multipartFile.isEmpty() && !multipartFile.getContentType().equals("image/jpeg")) {
+      throw new FileNotAllowedException("JPG 파일만 업로드 가능합니다.");
     }
 
     // 이미지는 jpg로 변환 후 S3에 저장
